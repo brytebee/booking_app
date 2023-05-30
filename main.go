@@ -56,7 +56,6 @@ func main() {
 			}
 		} else {
 			fmt.Printf("There's only %v remaiming, you can't book %v tickecks\n", remainingTickets, userTickets)
-			continue
 		}
 	}
 }
