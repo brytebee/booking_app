@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 const eventTickets = 50
 var eventName = "Go Summit"
@@ -15,7 +18,6 @@ type UserData struct {
 }
 
 func main() {
-
 	greetUsers()
 
 	for {
@@ -26,6 +28,7 @@ func main() {
 		if isValidName && isValidEmail && isValidTicketNumber {
 			// bookings, remainingTickets = bookTicket(userTickets, firstName, lastName, email)
 			bookTicket(userTickets, firstName, lastName, email)
+			go sendMails(userTickets, firstName, lastName, email)
 
 			fmt.Printf("List of bookings: %v\n", bookings)
 
@@ -107,4 +110,12 @@ func printValidations(isValidName bool, isValidEmail bool, isValidTicketNumber b
 	if !isValidTicketNumber {
 		fmt.Println("Invalid number of tickets, try again")
 	}
+}
+
+func sendMails(userTickets uint, firstName string, lastName string, email string) {
+	time.Sleep(10 * time.Second)
+	var ticket = fmt.Sprintf("\n%v for %v %v\nTo %v\n", userTickets, firstName, lastName, email)
+	fmt.Println("#############")
+	fmt.Printf("Sending tickets: %v\n", ticket)
+	fmt.Println("#############")
 }
